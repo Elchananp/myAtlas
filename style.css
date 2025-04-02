@@ -1,0 +1,92 @@
+body {
+  height: 100%;
+  width: 100%;
+  background-image: url(images/pexels-pixabay-41953.jpg);
+  background-size: cover;
+  background-position: center;
+}
+
+
+
+.dropdown-menu {
+  max-height: 300px;
+  max-width: 20x;
+  overflow-y: auto; /* הופך את התפריט לגלילה כשעובר את הגובה */
+}
+
+.flag-icon {
+  height: 1em;
+  width: auto;
+  vertical-align: middle;
+}
+
+
+main {
+  margin-top: 10rem;
+}
+.container-cards {
+  
+  display: flex;
+  flex-wrap: wrap;
+  gap: 60px 40px;
+}
+.card {
+  cursor: pointer;
+  margin: 0 auto;
+}
+.card-img-top {
+  width: 100%;
+  height: 200px;
+  object-fit: contain;
+}
+.modal-body {
+  display: flex;
+  height: 60vh;
+  /* justify-content: space-between; */
+}
+.modal-left,
+.modal-right {
+  width: 50%;
+  height: 100%;
+  background-color: aqua;
+  overflow-y: scroll;
+}
+
+.modal-right {
+  background-color: brown;
+}
+
+.pagination{
+  margin-top: 50px ;
+  /* width: 100%; */
+  /* height: 100%; */
+  display: flex;
+  justify-content: center;
+  align-self: center;
+}
+
+.hidden{
+  display: none;
+}
+
+footer {
+  background-color: rgba(0, 0, 0, 0.05);
+  text-align: center; /* ישב את התוכן במרכז */
+  position: relative;
+  width: 100%; /* להבטיח שהפוטר יימתח לכל רוחב הדף */
+  bottom: 0;
+}
+
+body {
+  width: 100%;;
+  min-height: 100vh; /* וודא שהדף תמיד יהיה לפחות בגובה של המסך */
+  display: flex;
+  flex-direction: column;
+}
+
+main {
+  flex-grow: 1; /* זה יאפשר לפוטר להיות בתחתית אם התוכן לא ממלא את כל הדף */
+  width: 100%;
+}
+
+
