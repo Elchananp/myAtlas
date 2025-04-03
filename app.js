@@ -38,54 +38,23 @@ const containerCards = document.querySelector(".container-cards");
 //   myModal.show()
 
 // });
-// async function getData(url) {
-//   try {
-//     let res = await fetch(url);
-//     if (!res.ok) throw new Error("Failed to fetch: " + res.status);
-
-//     let data = await res.json();
-//     // sort the data by common name
-//     data.sort((a, b) => a.name.common.localeCompare(b.name.common));
-
-
-//     // console.log(data.find((item) => item.name.common === "Israel"));
-
-//     console.log(data);
-//     // console.log(data[0]);
-//     // insertToDropList(data);
-//     // renderCards(getCardsPerPage(data.slice(0, 20)));
-//     // renderCards(getCardsPerPage(data))
-
-//     // renderCards(data);
-//     // arrayData = data;
-//     // console.log(arrayData);
-//     return data;
-//   } catch (error) {
-//     console.log(error);
-//   }
-// }
-
 async function getData(url) {
   try {
-    // השתמש בפרוקסי של CORS Anywhere
-    const proxyUrl = 'https://cors-anywhere.herokuapp.com/';
-    const finalUrl = proxyUrl + url;
-
-    let res = await fetch(finalUrl);
+    let res = await fetch(url);
     if (!res.ok) throw new Error("Failed to fetch: " + res.status);
 
     let data = await res.json();
-
-    // סידור המידע לפי שם נפוץ
+    // sort the data by common name
     data.sort((a, b) => a.name.common.localeCompare(b.name.common));
 
+
     console.log(data);
+
     return data;
   } catch (error) {
-    console.log("Error:", error);
+    console.log(error);
   }
 }
-
 
 const search = (data) => {
   console.log(data);
@@ -99,7 +68,6 @@ const search = (data) => {
         country.name.official.toLowerCase().includes(searchValue)
       );
     });
-    // console.log(data);
 
     console.log(e.target.value);
     console.log(filteredData);
@@ -111,28 +79,13 @@ const init = async () => {
   const data = await getData(url);
   arrayData = data;
   console.log(arrayData);
-  // listeners();
 
   listeners();
   insertToDropList(arrayData);
   renderCards(getCardsPerPage(arrayData));
 };
 
-// const renderCards = (data) => {
-//   const cards = data
-//     .map((item) => {
-//       return `<div class="card" data-of-country="${item.name.common}" style="width: 18rem; id="${item.name.common}">
-//             <img src="${item.flags.png}" class="card-img-top" alt="Flag of ${item.name.common}">
-//             <div class="card-body">
-//               <h5 class="card-title">${item.name.common}</h5>
-//               <p class="card-text"><strong>continents: </strong> ${item.continents}</p>
-//               <a href="#" id="localStorage" class="btn btn-primary"> Save</a>
-//             </div>
-//         </div>`;
-//     })
-//     .join("");
-//   containerCards.innerHTML = cards;
-// };
+
 
 const renderCards = (data) => {
   const cards = data
@@ -162,9 +115,8 @@ const renderCards = (data) => {
 
 const navbarListener = () => {
   const navbar = document.querySelector(".navbar");
-  
-  const navbarToggler = document.querySelector(".navbar-toggler"); // כפתור ה-navbar-toggler
 
+  const navbarToggler = document.querySelector(".navbar-toggler"); 
 
   navbar.addEventListener("click", (e) => {
     if (e.target === navbarToggler) {
@@ -190,124 +142,7 @@ const navbarListener = () => {
   });
 };
 
-// const renderCards = (data) => {
-//   const favoritesArr = JSON.parse(localStorage.getItem("favorites")) || [];
 
-//   const cards = data
-//     .map((item) => {
-//       // בדיקה אם המדינה קיימת בלוקאל סטורג'
-//       const isSaved = favoritesArr.some(fav => fav.name.common === item.name.common);
-
-//       return `<div class="card" data-of-country="${item.name.common}" style="width: 18rem;" id="${item.name.common}">
-//             <img src="${item.flags.png}" class="card-img-top" alt="Flag of ${item.name.common}">
-//             <div class="card-body">
-//               <h5 class="card-title">${item.name.common}</h5>
-//               <p class="card-text"><strong>Continents: </strong> ${item.continents}</p>
-//               <a href="#" id="localStorage" class="btn ${isSaved ? "btn-success" : "btn-primary"}">
-//                 ${isSaved ? "Saved" : "Save"}
-//               </a>
-//             </div>
-//         </div>`;
-//     })
-//     .join("");
-
-//   containerCards.innerHTML = cards;
-// };
-
-// const listenerToPaginationBtn = (data) => {
-//   console.log(data);
-
-//   const totalPages = Math.ceil(data.length / cardsPerPage);
-
-//   document.querySelector(".pagination").addEventListener("click", (e) => {
-//     const btnAction = e.target.closest(".page-link"); // מבטיח שלחצת על כפתור
-//     console.log(data);
-
-//     if (!btnAction) return; // אם לא לחצו על כפתור – לא לעשות כלום
-
-//     const btnText = btnAction.textContent.trim(); // תוכן הכפתור
-
-//     if (btnText === "Previous") {
-//       if (currentPage > 0) {
-//         // currentPage--;
-//         setCurrentPage(currentPage - 1)
-//       }
-//     } else if (btnText === "Next") {
-//       if (currentPage < totalPages - 1) {
-//         // currentPage++;
-//         setCurrentPage(currentPage + 1)
-//       }
-//     } else {
-//       const pageNumber = Number(btnText); // ממיר את הטקסט למספר
-//       if (!isNaN(pageNumber)) {
-//         // currentPage = pageNumber - 1; // מעדכן את העמוד
-//         setCurrentPage(pageNumber - 1)
-//       }
-//     }
-//     renderCards(getCardsPerPage(data))
-//     console.log(data);
-
-//     console.log("Current Page:", currentPage); // לבדיקה
-//   });
-// };
-
-// const listenerToPaginationBtn = (data) => {
-//   const totalPages = Math.ceil(data.length / cardsPerPage);
-
-//   document.querySelector(".pagination").addEventListener("click", (e) => {
-//     const btnAction = e.target.closest(".page-link"); // מבטיח שלחצת על כפתור
-
-//     if (!btnAction) return; // אם לא לחצו על כפתור – לא לעשות כלום
-
-//     const btnText = btnAction.textContent.trim(); // תוכן הכפתור
-
-//     if (btnText === "Previous") {
-//       if (currentPage > 0) {
-//         currentPage--;
-//       }
-//     } else if (btnText === "Next") {
-//       if (currentPage < totalPages - 1) {
-//         currentPage++;
-//       }
-//     } else {
-//       const pageNumber = Number(btnText); // ממיר את הטקסט למספר
-//       if (!isNaN(pageNumber)) {
-//         currentPage = pageNumber - 1; // מעדכן את העמוד
-//       }
-//     }
-//     renderCards(getCardsPerPage(data))
-//     console.log("Current Page:", currentPage); // לבדיקה
-//   });
-// };
-
-// const navbarListener = () => {
-//   const navbar = document.querySelector(".navbar");
-//   navbar.addEventListener("click", (e) => {
-//     // הפעלת אירוע - שמירת אלמנט שהפעיל את האירוע
-//     const clickedElement = e.target;
-//     console.log("Clicked element:", clickedElement);
-//     console.log("Element's text content:", clickedElement.textContent.trim());
-
-//     // אם לוחצים על "Home"
-//     if (clickedElement.textContent.trim() === "Home") {
-//       renderCards(getCardsPerPage(arrayData));
-//       isInFavoritesPage = false;
-//     } 
-//     // אם לוחצים על "Favorites"
-//     else if (clickedElement.textContent.trim() === "Favorites") {
-//       if (favorites && favorites.length > 0) {
-//         renderCards(getCardsPerPage(favorites));
-//         isInFavoritesPage = true;
-//       } else {
-//         document.querySelector(".container-cards").innerHTML = `<h2 class="text-center">No favorites yet</h2>`;
-//       }
-//     } 
-//     // אם לוחצים על כל דבר אחר
-//     else {
-//       isInFavoritesPage = false;
-//     }
-//   });
-// };
 
 const listenerToPaginationBtn = () => {
   document.querySelector(".pagination").addEventListener("click", (e) => {
@@ -337,7 +172,6 @@ const listenerToPaginationBtn = () => {
   });
 };
 
-// listenerToPaginationBtn(arrayData)
 
 const listeners = () => {
   navbarListener();
@@ -363,46 +197,30 @@ const listeners = () => {
     const card = e.target.closest(".card");
     if (!card) return;
 
-    // // listener to btn of localStorage
-    // if (e.target.id === "localStorage") {
-    //   e.preventDefault();
-    //   e.stopPropagation();
-    //   console.log(isInFavoritesPage);
-
-    //   const countryName = card.getAttribute("data-of-country");
-    //   console.log(countryName);
-    //   localStorageManager(countryName, favorites, arrayData, e.target);
-    //   if (isInFavoritesPage) {
-    //     console.log(isInFavoritesPage);
-
-    //     renderCards(getCardsPerPage(favorites));
-    //   }
-    //   return;
-    // }
+ 
 
     console.log();
-    
 
     if (e.target.id === "localStorage") {
       e.preventDefault();
       e.stopPropagation();
-      console.log(isInFavoritesPage);  // בדוק את הערך הנוכחי של isInFavoritesPage
-  
+      console.log(isInFavoritesPage); // בדוק את הערך הנוכחי של isInFavoritesPage
+
       const countryName = card.getAttribute("data-of-country");
       console.log(countryName);
       localStorageManager(countryName, favorites, arrayData, e.target);
-      
+
       // אם אנחנו עדיין בעמוד המועדפים
       if (isInFavoritesPage) {
-        console.log(isInFavoritesPage);  // בדוק שוב את הערך של isInFavoritesPage
-        renderCards(getCardsPerPage(favorites));  // עדכון התצוגה אם אנחנו במועדפים
+        console.log(isInFavoritesPage); // בדוק שוב את הערך של isInFavoritesPage
+        renderCards(getCardsPerPage(favorites)); // עדכון התצוגה אם אנחנו במועדפים
       }
       return;
     }
 
     const countryName = card.getAttribute("data-of-country");
     // console.log(card.innerHTML);
-    
+
     modalElement.setAttribute("data-country", countryName); // שמירת שם המדינה במודל
     modal.show();
   });
@@ -417,13 +235,16 @@ const listeners = () => {
     if (countryData) {
       console.log("countryData", countryData.name.common);
       const containerMap = document.querySelector(".modal-right");
-      const element = document.querySelector(`.card[data-of-country="${countryData.name.common}"]`);
+      const element = document.querySelector(
+        `.card[data-of-country="${countryData.name.common}"]`
+      );
       // const buttonText = element.querySelector("#localStorage").textContent.trim();
       const buttonOfCard = element.querySelector("#localStorage");
 
-      
       // console.log();
-            const buttonText = element.querySelector("#localStorage").textContent.trim();
+      const buttonText = element
+        .querySelector("#localStorage")
+        .textContent.trim();
 
       updateModal(countryData, buttonOfCard);
       // updateModal(countryData, buttonText);
