@@ -51,7 +51,6 @@ const createPageNavigation = () => {
 
 const changeBtnNavigation = (data) => {
 
-  // const realCurrentPage = currentPage
   const paginationBtn = document.querySelector(".pagination");
   const totalPages = Math.ceil(data.length / cardsPerPage);
   console.log("totalPages " + totalPages);
@@ -78,17 +77,12 @@ const changeBtnNavigation = (data) => {
   hideBtn(totalPages, paginationBtn);
 };
 
-// const hideBtn = (totalPages, paginationBtn) => {
-//   if (totalPages <= 1) {
-//     paginationBtn.classList.toggle(".hidden");
-//   } else if (totalPages === 2) {
-//     paginationBtn.children[2].classList.toggle(".hidden");
-//   }
-// };
+
 
 const hideBtn = (totalPages, paginationBtn) => {
   if (totalPages <= 1) {
-    paginationBtn.classList.add("hidden"); // מוסיף את הקלאס "hidden" אם יש עמוד אחד בלבד
+    // מוסיף את הקלאס "hidden" אם יש עמוד אחד בלבד
+    paginationBtn.classList.add("hidden");
   } else if (totalPages === 2) {
     paginationBtn.children[3].classList.add("hidden"); // מסתיר את כפתור העמוד השלישי אם יש שני עמודים
   } else {
@@ -96,43 +90,6 @@ const hideBtn = (totalPages, paginationBtn) => {
   }
 };
 
-//   const listenerToPaginationBtn = () => {
-//     document.querySelector(".pagination").addEventListener("click", (e) => {
-//        const btnAction = e.target;
-//         if (btnAction.textContent) {
-
-//         }
-//     })
-//   }
-
-// const listenerToPaginationBtn = (data) => {
-//     const totalPages = Math.ceil(data.length / cardsPerPage);
-
-//     document.querySelector(".pagination").addEventListener("click", (e) => {
-//       const btnAction = e.target.closest(".page-link"); // מבטיח שלחצת על כפתור
-
-//       if (!btnAction) return; // אם לא לחצו על כפתור – לא לעשות כלום
-
-//       const btnText = btnAction.textContent.trim(); // תוכן הכפתור
-
-//       if (btnText === "Previous") {
-//         if (currentPage > 0) {
-//           currentPage--;
-//         }
-//       } else if (btnText === "Next") {
-//         if (currentPage < totalPages - 1) {
-//           currentPage++;
-//         }
-//       } else {
-//         const pageNumber = Number(btnText); // ממיר את הטקסט למספר
-//         if (!isNaN(pageNumber)) {
-//           currentPage = pageNumber - 1; // מעדכן את העמוד
-//         }
-//       }
-//       renderCards(getCardsPerPage(data))
-//       console.log("Current Page:", currentPage); // לבדיקה
-//     });
-//   };
 
 const setCurrentPage = (num) => {
   currentPage = num;
@@ -147,5 +104,4 @@ export {
   getCardsPerPage,
   changeBtnNavigation,
   setCurrentPage,
-  // listenerToPaginationBtn
 };

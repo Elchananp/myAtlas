@@ -132,9 +132,10 @@ const navbarListener = () => {
         isInFavoritesPage = true;
         console.log(isInFavoritesPage);
       } else {
+        document.querySelector(".pagination").classList.add("hidden");
         document.querySelector(
           ".container-cards"
-        ).innerHTML = `<h2 class="text-center">No favorites yet</h2>`;
+        ).innerHTML = `<h2 class="text-center" style="color: red;" >No favorites yet</h2>`;
       }
     } else {
       isInFavoritesPage = false;
@@ -219,7 +220,6 @@ const listeners = () => {
     }
 
     const countryName = card.getAttribute("data-of-country");
-    // console.log(card.innerHTML);
 
     modalElement.setAttribute("data-country", countryName); // שמירת שם המדינה במודל
     modal.show();
@@ -238,7 +238,6 @@ const listeners = () => {
       const element = document.querySelector(
         `.card[data-of-country="${countryData.name.common}"]`
       );
-      // const buttonText = element.querySelector("#localStorage").textContent.trim();
       const buttonOfCard = element.querySelector("#localStorage");
 
       // console.log();
@@ -261,7 +260,7 @@ const listeners = () => {
       (item) => item.name.common === countryName
     );
 
-    renderCards([countryData]);
+    renderCards(getCardsPerPage([countryData]));
   });
 
   console.log(arrayData);

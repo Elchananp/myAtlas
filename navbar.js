@@ -13,12 +13,13 @@ const insertToDropList = (data) => {
     .join("");
   dropdownMenu.innerHTML = listOfCountries;
 };
+      // סוגר את התפריט בלחיצה על כל איזור במיין אם הוא פתוח
 
 function closeNavbarOnMainClick() {
   document.querySelector("main").addEventListener("click", () => {
     const navbarToggler = document.querySelector(".navbar-toggler");
     if (navbarToggler.getAttribute("aria-expanded") === "true") {
-      navbarToggler.click(); // סוגר את התפריט אם הוא פתוח
+      navbarToggler.click(); 
     }
   });
 }

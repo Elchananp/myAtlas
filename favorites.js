@@ -2,7 +2,6 @@ const favorites = JSON.parse(localStorage.getItem("favorites")) || [];
 
 const pushToLocalStorage = (element, favoritesArr, arrayData) => {
   const country = arrayData.find((item) => item.name.common === element);
-  // if (!favoritesArr.some((item) => item.name.common === element)) {
   if (!isItemInLocalStorage(element)) {
     favoritesArr.push(country);
 
