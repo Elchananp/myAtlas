@@ -1,4 +1,4 @@
-
+import {favorites} from "./favorites.js";
 const createModal = () => {
     return `<div class="modal fade" id="staticBackdrop"  data-bs-keyboard="true" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
   <div class="modal-dialog modal-dialog-scrollable modal-dialog-centered modal-xl">
@@ -46,7 +46,9 @@ const createModal = () => {
 
 
 
-const updateModal = (country) => {
+const updateModal = (country, btnOfCard) => {
+  // console.log(favorites);
+  
     document.querySelector("#staticBackdropLabel").textContent = country.name?.common || "No title";
     document.querySelector(".modal-body .modal-left").innerHTML = `
         <p><strong>Common Name:</strong> ${country.name?.common || "N/A"}</p>
@@ -67,6 +69,20 @@ const updateModal = (country) => {
         <p><strong>Continent:</strong> ${country.continents?.join(", ") || "N/A"}</p>
         <p><strong>Start of the Week:</strong> ${country.startOfWeek || "N/A"}</p>
     `;
+    console.log("btnText : ", btnOfCard);
+    
+    const btn = document.querySelector(".modal-footer").children[1];
+    const isSave = btnOfCard.textContent.trim() === "Save";
+    
+    btn.textContent = btnOfCard.textContent.trim();
+    
+    // מסיר את הקלאס הלא נכון ומוסיף את הקלאס המתאים
+    btn.classList.toggle("btn-success", isSave);
+    btn.classList.toggle("btn-danger", !isSave);
+    
+      
+      // console.log(test);
+      
 };
 
 const renderModalContent  = (arrayData) => {

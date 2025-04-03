@@ -44,6 +44,9 @@ async function getData(url) {
     if (!res.ok) throw new Error("Failed to fetch: " + res.status);
 
     let data = await res.json();
+    // sort the data by common name
+    data.sort((a, b) => a.name.common.localeCompare(b.name.common));
+
 
     // console.log(data.find((item) => item.name.common === "Israel"));
 
@@ -355,6 +358,9 @@ const listeners = () => {
     //   return;
     // }
 
+    console.log();
+    
+
     if (e.target.id === "localStorage") {
       e.preventDefault();
       e.stopPropagation();
@@ -373,6 +379,8 @@ const listeners = () => {
     }
 
     const countryName = card.getAttribute("data-of-country");
+    // console.log(card.innerHTML);
+    
     modalElement.setAttribute("data-country", countryName); // שמירת שם המדינה במודל
     modal.show();
   });
@@ -385,8 +393,18 @@ const listeners = () => {
     );
 
     if (countryData) {
+      console.log("countryData", countryData.name.common);
       const containerMap = document.querySelector(".modal-right");
-      updateModal(countryData);
+      const element = document.querySelector(`.card[data-of-country="${countryData.name.common}"]`);
+      // const buttonText = element.querySelector("#localStorage").textContent.trim();
+      const buttonOfCard = element.querySelector("#localStorage");
+
+      
+      // console.log();
+            const buttonText = element.querySelector("#localStorage").textContent.trim();
+
+      updateModal(countryData, buttonOfCard);
+      // updateModal(countryData, buttonText);
       renderMap(countryData.latlng, containerMap);
     }
   });
