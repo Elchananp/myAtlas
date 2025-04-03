@@ -38,32 +38,54 @@ const containerCards = document.querySelector(".container-cards");
 //   myModal.show()
 
 // });
+// async function getData(url) {
+//   try {
+//     let res = await fetch(url);
+//     if (!res.ok) throw new Error("Failed to fetch: " + res.status);
+
+//     let data = await res.json();
+//     // sort the data by common name
+//     data.sort((a, b) => a.name.common.localeCompare(b.name.common));
+
+
+//     // console.log(data.find((item) => item.name.common === "Israel"));
+
+//     console.log(data);
+//     // console.log(data[0]);
+//     // insertToDropList(data);
+//     // renderCards(getCardsPerPage(data.slice(0, 20)));
+//     // renderCards(getCardsPerPage(data))
+
+//     // renderCards(data);
+//     // arrayData = data;
+//     // console.log(arrayData);
+//     return data;
+//   } catch (error) {
+//     console.log(error);
+//   }
+// }
+
 async function getData(url) {
   try {
-    let res = await fetch(url);
+    // השתמש בפרוקסי של CORS Anywhere
+    const proxyUrl = 'https://cors-anywhere.herokuapp.com/';
+    const finalUrl = proxyUrl + url;
+
+    let res = await fetch(finalUrl);
     if (!res.ok) throw new Error("Failed to fetch: " + res.status);
 
     let data = await res.json();
-    // sort the data by common name
+
+    // סידור המידע לפי שם נפוץ
     data.sort((a, b) => a.name.common.localeCompare(b.name.common));
 
-
-    // console.log(data.find((item) => item.name.common === "Israel"));
-
     console.log(data);
-    // console.log(data[0]);
-    // insertToDropList(data);
-    // renderCards(getCardsPerPage(data.slice(0, 20)));
-    // renderCards(getCardsPerPage(data))
-
-    // renderCards(data);
-    // arrayData = data;
-    // console.log(arrayData);
     return data;
   } catch (error) {
-    console.log(error);
+    console.log("Error:", error);
   }
 }
+
 
 const search = (data) => {
   console.log(data);
